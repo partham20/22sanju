@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>22 — For Sanjana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--fg:#fff;--gray:#86868b;--gray2:#424245;--gray3:#1d1d1f;--accent:#e11d48;--accent2:#fb7185;--card:rgba(255,255,255,.04)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:none}
+body{font-family:'Inter','Noto Sans Tamil',-apple-system,sans-serif;background:var(--bg);color:var(--fg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{display:none}
+img,video{display:block}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUpSm{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.2)}28%{transform:scale(1)}42%{transform:scale(1.14)}}
+@keyframes confetti{0%{transform:translateY(-5vh) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(720deg);opacity:0}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+.reveal{opacity:0;transform:translateY(50px);transition:opacity .8s cubic-bezier(.25,.1,.25,1),transform .8s cubic-bezier(.25,.1,.25,1)}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.reveal-scale{opacity:0;transform:scale(.94);transition:opacity .6s ease,transform .6s ease}
+.reveal-scale.vis{opacity:1;transform:scale(1)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:90;padding:0 24px;height:48px;display:flex;align-items:center;justify-content:center;gap:28px;background:rgba(0,0,0,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
+nav a{font-size:12px;color:var(--gray);text-decoration:none;transition:color .25s;font-weight:400}
+nav a:hover{color:var(--fg)}
+
+section{position:relative;z-index:1}
+.full{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px}
+.pad{padding:120px 24px}
+.headline{font-size:clamp(48px,8vw,96px);font-weight:700;letter-spacing:-.04em;line-height:.98}
+.headline-sm{font-size:clamp(32px,5vw,56px);font-weight:700;letter-spacing:-.035em;line-height:1.05}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);font-weight:500}
+.gradient-text{background:linear-gradient(135deg,#e11d48,#f472b6 40%,#c084fc 70%,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+#confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:200}
+.conf{position:absolute;top:0;animation:confetti ease-in forwards}
+
+.moon{font-size:80px;animation:float 5s ease-in-out infinite;filter:drop-shadow(0 0 40px rgba(225,29,72,.3));margin-bottom:32px}
+.cd{display:flex;gap:8px;margin-top:40px;justify-content:center;flex-wrap:wrap}
+.cd-box{padding:16px 22px;min-width:80px;text-align:center;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px}
+.cd-num{font-size:36px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.cd-label{font-size:10px;color:var(--gray);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+
+.letter-wrap{max-width:600px;margin:0 auto}
+.letter-line{font-size:clamp(16px,2vw,20px);line-height:2;color:rgba(255,255,255,.6);font-weight:300;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.letter-line.vis{opacity:1;transform:translateY(0)}
+.letter-line.dear{font-size:clamp(20px,3vw,26px);font-weight:500;color:var(--fg);font-style:italic}
+.letter-line.sign{color:var(--accent);font-weight:500;font-size:clamp(18px,2.5vw,22px)}
+.letter-line.happy{color:var(--fg);font-weight:600;font-size:clamp(18px,2.5vw,22px)}
+.letter-line.empty{min-height:20px}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;max-width:1000px;margin:0 auto}
+.gal-item{position:relative;overflow:hidden;aspect-ratio:.8;cursor:pointer}
+.gal-item img,.gal-item video{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.1,.25,1)}
+.gal-item:hover img,.gal-item:hover video{transform:scale(1.06)}
+.gal-overlay{position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.7));opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:20px}
+.gal-item:hover .gal-overlay{opacity:1}
+.gal-cap{font-size:13px;color:rgba(255,255,255,.85)}
+.gal-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-size:18px;opacity:.8;transition:opacity .3s}
+
+#lb{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.95);backdrop-filter:blur(20px);align-items:center;justify-content:center;flex-direction:column;cursor:pointer}
+#lb.open{display:flex}
+#lb-cap{color:var(--gray);font-size:14px;margin-top:16px;font-weight:300}
+#lb-close{position:absolute;top:16px;right:20px;font-size:24px;color:var(--gray);cursor:pointer;background:none;border:none;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+#lb-close:hover{color:var(--fg);background:rgba(255,255,255,.1)}
+
+.poems-container{max-width:680px;margin:0 auto}
+.poem-item{border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer;transition:background .3s}
+.poem-item:first-child{border-top:1px solid rgba(255,255,255,.06)}
+.poem-item:hover{background:rgba(255,255,255,.02)}
+.poem-header{display:flex;align-items:center;gap:16px;padding:20px 0}
+.poem-n{font-size:11px;font-weight:700;color:var(--gray2);width:28px;text-align:right;flex-shrink:0}
+.poem-item.open .poem-n{color:var(--accent)}
+.poem-t{font-size:16px;font-weight:500;color:rgba(255,255,255,.85);flex:1;transition:color .3s}
+.poem-item.open .poem-t{color:var(--accent)}
+.poem-plus{font-size:20px;color:var(--gray2);transition:transform .4s,color .3s;font-weight:200}
+.poem-item.open .poem-plus{transform:rotate(45deg);color:var(--accent)}
+.poem-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.25,.1,.25,1),padding .5s;padding:0 0 0 44px;font-size:15px;color:rgba(255,255,255,.5);line-height:2;white-space:pre-line;font-weight:300}
+.poem-item.open .poem-body{max-height:800px;padding:0 0 24px 44px}
+
+.section-light{background:#fafafa;color:var(--gray3)}
+.section-light .poem-item{border-color:rgba(0,0,0,.08)}
+.section-light .poem-item:hover{background:rgba(0,0,0,.02)}
+.section-light .poem-t{color:rgba(0,0,0,.8)}
+.section-light .poem-n{color:#86868b}
+.section-light .poem-item.open .poem-n,.section-light .poem-item.open .poem-t{color:#7c3aed}
+.section-light .poem-plus{color:#86868b}
+.section-light .poem-item.open .poem-plus{color:#7c3aed}
+.section-light .poem-body{color:rgba(0,0,0,.5)}
+.section-light .headline-sm,.section-light .headline{color:var(--gray3)}
+.section-light .eyebrow{color:#86868b}
+
+.riddle-list{max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+.riddle-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:28px}
+.riddle-text{font-size:15px;color:rgba(255,255,255,.5);line-height:1.8;font-style:italic;font-weight:300}
+.riddle-btn{margin-top:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:10px 24px;color:var(--fg);font-size:13px;font-weight:500;cursor:pointer;transition:all .3s;font-family:inherit}
+.riddle-btn:hover{background:rgba(255,255,255,.1)}
+.riddle-btn.shown{background:var(--accent);border-color:var(--accent)}
+
+.gift-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:860px;margin:0 auto}
+.gift-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:32px 24px;cursor:pointer;transition:all .4s;text-align:center}
+.gift-card:hover{background:rgba(255,255,255,.07);transform:translateY(-4px)}
+.gift-card.open{background:rgba(255,255,255,.08);border-color:rgba(225,29,72,.2)}
+.gift-emoji{font-size:36px;margin-bottom:12px;transition:transform .4s;display:inline-block}
+.gift-card:hover .gift-emoji,.gift-card.open .gift-emoji{transform:scale(1.2)}
+.gift-label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);transition:color .3s}
+.gift-card.open .gift-label{color:var(--accent)}
+.gift-text{font-size:14px;color:rgba(255,255,255,.5);line-height:1.8;margin-top:16px;display:none;animation:fadeUpSm .4s ease forwards}
+.gift-card.open .gift-text{display:block}
+
+@media(max-width:768px){.gallery-grid{grid-template-columns:repeat(2,1fr);gap:3px}.gift-grid{grid-template-columns:1fr 1fr;gap:10px}.gift-card{padding:24px 16px}nav{gap:14px}nav a{font-size:11px}.pad{padding:80px 20px}}
+@media(max-width:480px){.gift-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV — updated order -->
+<nav>
+  <a href="#hero">Top</a>
+  <a href="#letter-section">Letter</a>
+  <a href="#gallery-section">Gallery</a>
+  <a href="#eng-section">Poems</a>
+  <a href="#tam-section">கவிதை</a>
+  <a href="#riddles-section">Riddles</a>
+  <a href="#gifts-section">Gifts</a>
+</nav>
+
+<div id="confetti-wrap"></div>
+<div id="lb" onclick="closeLB(event)"><button id="lb-close" onclick="closeLB(event)">&times;</button><div id="lb-media-wrap"></div><div id="lb-cap"></div></div>
+
+<!-- ═══ 1. HERO + COUNTDOWN ═══ -->
+<section id="hero" class="full">
+  <div class="moon reveal">🌙</div>
+  <p class="eyebrow reveal reveal-d1">March 22, 2026</p>
+  <h1 class="headline gradient-text reveal reveal-d2" style="margin-top:16px">Sanjana</h1>
+  <p class="reveal reveal-d3" style="margin-top:16px;font-size:17px;font-weight:300;color:var(--gray);font-style:italic">Twenty-two.</p>
+  <div class="cd reveal reveal-d3" id="countdown"></div>
+</section>
+
+<!-- Quote bridge -->
+<section class="full" style="min-height:80vh">
+  <p class="headline-sm reveal" style="max-width:700px;color:rgba(255,255,255,.7);font-weight:300;line-height:1.5">
+    She did not fix me.<br>
+    She just stood there being herself,<br>
+    and somehow that was enough<br>
+    to remind me <span style="color:var(--fg);font-weight:600">I was worth fixing.</span>
+  </p>
+</section>
+
+<!-- ═══ 2. LOVE LETTER ═══ -->
+<section id="letter-section" class="pad">
+  <div style="text-align:center;margin-bottom:64px">
+    <p class="eyebrow reveal">From my heart</p>
+    <h2 class="headline-sm reveal reveal-d1" style="margin-top:12px">A Letter For You</h2>
+  </div>
+  <div class="letter-wrap" id="letter-wrap"></div>
+</section>
+
+<!-- ═══ 3. PHOTO & VIDEO GALLERY ═══ -->
+<section class="full" style="min-height:60vh">
+  <p class="eyebrow reveal">YOUR DHARISANAM</p>
+  <h2 class="headline reveal reveal-d1" style="margin-top:12px">Memories.</h2>
+</section>
+<section id="gallery-section" style="padding:0 0 120px">
+  <div class="gallery-grid" id="gallery-grid"></div>
+</section>
+
+<!-- ═══ 4. 22 ENGLISH POEMS ═══ -->
+<section class="full section-light" style="min-height:50vh">
+  <p class="eyebrow reveal">22 Poems</p>
+  <h2 class="headline reveal reveal-d1" style="margin-top:12px">She Is<br>The Moon.</h2>
+</section>
+<section id="eng-section" class="pad section-light" style="padding-top:0">
+  <div class="poems-container" id="eng-wrap"></div>
+</section>
+
+<!-- ═══ 5. 22 TAMIL POEMS ═══ -->
+<section class="full" style="min-height:50vh">
+  <p class="eyebrow reveal">22 தமிழ் கவிதைகள்</p>
+  <h2 class="headline reveal reveal-d1 gradient-text" style="margin-top:12px">கவிதை.</h2>
+</section>
+<section id="tam-section" class="pad" style="padding-top:0">
+  <div class="poems-container" id="tam-wrap"></div>
+</section>
+
+<!-- ═══ 6. GIFT RIDDLES ═══ -->
+<section id="riddles-section" class="pad" style="border-top:1px solid rgba(255,255,255,.06)">
+  <div style="text-align:center;margin-bottom:64px">
+    <p class="eyebrow reveal">Can you guess?</p>
+    <h2 class="headline-sm reveal reveal-d1" style="margin-top:12px">Gift Riddles</h2>
+  </div>
+  <div class="riddle-list" id="riddle-list"></div>
+</section>
+
+<!-- ═══ 7. WHY EACH GIFT ═══ -->
+<section id="gifts-section" class="pad" style="border-top:1px solid rgba(255,255,255,.06)">
+  <div style="text-align:center;margin-bottom:64px">
+    <p class="eyebrow reveal">Tap to reveal</p>
+    <h2 class="headline-sm reveal reveal-d1" style="margin-top:12px">Why Each Gift?</h2>
+  </div>
+  <div class="gift-grid" id="gift-grid"></div>
+</section>
+
+<!-- ═══ 8. FINAL MESSAGE ═══ -->
+<section class="full" style="min-height:100vh">
+  <div style="font-size:72px;animation:heartbeat 1.8s infinite;filter:drop-shadow(0 0 40px rgba(225,29,72,.3))" class="reveal">❤️</div>
+  <h2 class="headline gradient-text reveal reveal-d1" style="margin-top:32px">Happy Birthday.</h2>
+  <div class="reveal reveal-d2" style="max-width:440px;margin:36px auto 0;padding:28px;border:1px solid rgba(255,255,255,.08);border-radius:20px;background:var(--card)">
+    <p style="font-size:17px;color:rgba(255,255,255,.55);line-height:2;font-weight:300;font-style:italic">
+      எனக்கு ஏன் உன்ன பிடிக்கும்னு தெரியல.<br>
+      ஆனா உன்ன பிடிக்கும்.<br>
+      அவ்வளவுதான்.
+    </p>
+  </div>
+  <p class="reveal reveal-d3" style="margin-top:36px;font-size:20px;color:var(--accent);font-weight:300;font-style:italic;letter-spacing:-.02em">— Forever yours, Paartha</p>
+  <p style="margin-top:80px;font-size:11px;color:var(--gray2);letter-spacing:.08em">BUILT WITH LOVE</p>
+</section>
+
+<script>
+var PHOTOS=[{s:"photos/486169697_1162262188435588_3657499076352479760_n.jpg",c:"The smile that started it all",v:0},{s:"photos/Snapchat-235623668.jpg",c:"Quietly extraordinary",v:0},{s:"photos/IMG-20250322-WA0028.jpg",c:"Side profile",v:0},{s:"photos/IMG-20250322-WA0030.jpg",c:"Peaceful. Beautiful.",v:0},{s:"photos/Screenshot_20250426_161956.jpg",c:"Us",v:0},{s:"photos/Snapchat-378973652.jpg",c:"Night glow",v:0},{s:"photos/Snapchat-1645608249.jpg",c:"Eyes closed, world paused",v:0},{s:"photos/Snapchat-309951711.jpg",c:"With the dogs she loves",v:0},{s:"photos/IMG-20250531-WA0299.jpg",c:"Pink kurti",v:0},{s:"photos/IMG-20250531-WA0302.jpg",c:"Goodnight",v:0},{s:"photos/IMG-20250531-WA0289.jpg",c:"Squad",v:0},{s:"photos/IMG-20250531-WA0292.jpg",c:"Flowers & friends",v:0},{s:"photos/Screenshot_20250906_191044.jpg",c:"110% excuses",v:0},{s:"photos/Snapchat-1851026338.mp4",c:"Snap memory",v:1},{s:"photos/Snapchat-1080833444.mp4",c:"That moment",v:1},{s:"photos/Snapchat-1980070974.mp4",c:"Full of life",v:1},{s:"photos/Snapchat-35212686.mp4",c:"That energy",v:1},{s:"photos/Snapchat-547980650.mp4",c:"My favourite human",v:1},{s:"photos/Snapchat-1972817430.mp4",c:"Sanjana being Sanjana",v:1},{s:"photos/Snapchat-464284781.mp4",c:"Always",v:1}];
+
+var LETTER=[{t:"Dear Sanjana,",c:"dear"},{t:"",c:"empty"},{t:"நான் ஏன் உன்னை நேசிக்கிறேன் என்று எனக்குத் தெரியாது."},{t:"ஆனால் உன்னை நேசிக்கிறேன், அவ்வளவுதான்."},{t:"",c:"empty"},{t:"You didn't fix me."},{t:"You just stood there being yourself,"},{t:"and somehow that was enough"},{t:"to remind me I was worth fixing."},{t:"",c:"empty"},{t:"I feel so good when you talk."},{t:"I don't want this time to end."},{t:"",c:"empty"},{t:"It's nothing about physical attraction."},{t:"Unna paathale enakku etho thonudhu di,"},{t:"etho aaguthu di."},{t:"What it is — I still don't know."},{t:"But I know it's you."},{t:"",c:"empty"},{t:"Raani maari paathuppen."},{t:"I just want to buy the entire universe and keep it with you."},{t:"",c:"empty"},{t:"Happy 22nd Birthday, my moon.",c:"happy"},{t:"",c:"empty"},{t:"— Forever yours, Paartha ❤️",c:"sign"}];
+
+var REVEALS=[{e:"🌙",l:"The Moon",t:"You glow softly, beautifully — just like the crescent moon necklace I made for you."},{e:"🧸",l:"The Teddy",t:"Enga ponaalum nan unkudave irukkura maari irukkum. That little bear is me — always in your bag, always by your side."},{e:"💐",l:"Real Flowers",t:"Flowers that will never wilt — sealed in jewelry, sealed in love."},{e:"📱",l:"The Cover",t:"A tiny cartoon you will smile at you every time you pick up your phone."},{e:"🎵",l:"Singing Photo",t:"Every time you look at that photo, it plays the song that reminds me of us."},{e:"💌",l:"Why 22",t:"22 letters, 22 poems — because you're turning 22 and every year deserves celebration."}];
+
+var EP=[{n:1,t:"She Is The Moon",p:"She is the moon I forgot I was chasing —\nsilver, ancient, achingly familiar,\nthe kind of light that doesn't blind\nbut finds the parts of you\nyou buried under years.\n\nShe is the moon and I am the tide —\nI don't choose to move toward her.\nI simply have no other direction.\n\nI love her the way the earth loves gravity —\nnot because I decided to,\nbut because something deeper than choice\nalready knew her name."},{n:2,t:"Jealous of Everything",p:"I did not know I was unhappy\nuntil she laughed —\nand something in my chest\nremembered what warmth was.\n\nShe did not fix me.\nShe just stood there being herself,\nand somehow that was enough\nto remind me I was worth fixing.\n\nI wish I could give her my eyes\nfor just one ordinary Tuesday.\nShe would finally understand\nwhy I can't look away."},{n:3,t:"The Day You Were Born",p:"Somewhere, twenty-two years ago,\na girl opened her eyes\nand the universe quietly rearranged itself.\n\nThe countdown had already started —\nevery wrong turn, every heartbreak\nwas just the universe\nwalking me toward you."},{n:4,t:"What I Cannot Name",p:"It's nothing about how you look —\nthough God, you're beautiful.\n\nSomething I feel when you talk,\nwhen you say 'ey saavu adippEN'\nand my whole chest blooms.\n\nUnna paathale enakku etho thonudhu di.\nThat 'etho' —\nis the truest thing I've ever felt."},{n:5,t:"The Universe I'd Buy",p:"I want to buy the entire universe\nand keep it with you.\n\nNot the stars —\nbut every morning you'll ever wake to,\nevery song that makes you hum.\n\nI want to buy you time\nwhere you never wonder\nif someone is thinking of you.\n\nI am. Always."},{n:6,t:"Her Laugh Is Medicine",p:"Your laugh is a prescription\nno pharmacy carries.\n\nYou're already saving lives, Sanjana.\nYou saved mine\nbefore you even wore the white coat."},{n:7,t:"The Teddy Bear's Promise",p:"There's a small bear in your bag now.\nIt's me — compressed.\nAll my warmth, all my 'did you eat?'\nstuffed into cotton and fabric.\n\nWherever you go, I go.\nThat was the promise."},{n:8,t:"Crescent Moon Girl",p:"I gave you a crescent moon\nbecause you are one.\n\nYou reveal yourself slowly —\na sliver of light tonight,\na little more tomorrow.\n\nI've always preferred moonlight —\nit finds you in the dark\nwhen nothing else can."},{n:9,t:"Fan Club, Population: One",p:"Virat Kohli is my hero.\nThe Weeknd makes me feel alive.\nBut you — the whole stadium,\nthe whole concert, the whole sky.\n\nI'm the president of a fan club\nwith exactly one member.\nBut the devotion\ncould fill an arena."},{n:10,t:"The Distance Lie",p:"Heart to heart — zero.\nThought to thought — less than zero.\n\nGeography has never\nstopped a single love letter from arriving."},{n:11,t:"Your Voice, My Lullaby",p:"You say 'go sleep' — I hear a lullaby.\nYou say 'I'll hit you' — I hear a love song.\n\nA day without your voice isn't a day.\nIt's just hours pretending to mean something."},{n:12,t:"Waiting Is Love",p:"Waiting is love, isn't it?\n\nI'll keep waiting.\nNot until you love me back.\nUntil time itself gives up."},{n:13,t:"Morning Dreams",p:"Waking you up with a forehead kiss.\nBringing you coffee.\n\nYou'd say 'poda.' I'd kiss you again.\nYou'd say 'loosu.' I'd bring more coffee.\n\nOne day this won't be a dream."},{n:14,t:"The Doctor Who Healed Me First",p:"You healed something no textbook covers —\na boy whose heart was in pieces.\n\nNo pills. No prescriptions. Just your existence.\n\nYou already saved a life.\nIt was mine."},{n:15,t:"You Brought Me Back",p:"I was living like a sixty-year-old at twenty-four.\n\nThen you showed up —\nfull of life, full of mischief,\nlaughing like the world owes you nothing.\n\nYou made me eighteen again.\nJust by being twenty-two."},{n:16,t:"Every Song Is You",p:"Roja Roja — your face.\nAnbe Aaruire — your name.\n\nMy playlist isn't music.\nIt's a museum of memories of you."},{n:17,t:"Rose With Thorns",p:"You are a rose no one can pluck.\nBeauty and defense on the same stem.\n\nI'd stand beside you.\nNot as a guard —\nas someone who thinks\neven your thorns are beautiful."},{n:18,t:"Refugee of Your Heart",p:"I wander like a refugee\nhoping to find a place in your heart.\n\nIf hiccups mean someone thinks of you —\nyou'd have hiccupped yourself\ninto another dimension by now."},{n:19,t:"Lucky Number",p:"Any number that has you in it\nis the luckiest number alive.\n\n'One day, he'll find her.\nShe'll be worth every wrong chapter before.'"},{n:20,t:"White Coat Angel",p:"If you placed a stethoscope on my chest,\nyou'd hear:\nSanjana, Sanjana, Sanjana.\n\nDon't listen too closely —\nyou'll never want to give it back."},{n:21,t:"You Are My Address",p:"A world without you is just geography.\nA world with you is home.\n\nYou are my address.\nYou are my search.\nYou are my everything."},{n:22,t:"Love Without Reason",p:"Like the wave loves the sea —\nno choice, only direction.\n\nLike breath loves air —\nno preference, only survival.\n\nWithout reason. Without condition. Without end.\n\nI love you, Sanjana.\n\nForever yours,\nPaartha"}];
+
+var TP=[{n:1,t:"நீ பிறந்த நாள்",p:"நீ பிறந்த நாளில் உலகம் ஒரு புது நிறம் பெற்றது\nகாற்று கொஞ்சம் இனிமையாக மாறியது\nநிலவு கொஞ்சம் பிரகாசமாக ஒளிர்ந்தது\n\nநீ இல்லாமல் 22 வருடம் வாழ்ந்தேன்\nநீ இருக்கும் ஒரு நொடி —\nஅந்த 22 வருடத்தையும் பிஞ்சிவிட்டது"},{n:2,t:"முன்னும் பின்னும்",p:"உன் சிரிப்புக்குப் பின்னல் ஒரு கடல் ஒளிந்திருக்கிறது\nநீ காட்டாத கண்ணீர் நான் கேட்காத வார்த்தைகள்\n\nகாதல் என்பது சொல்வது அல்ல — புரிந்துகொள்வது"},{n:3,t:"என் இளமை நீ",p:"நான் இழந்த சிரிப்பை உன் முகத்தில் காண்கிறேன்\nநான் மறந்த துணிச்சலே உன் நடையில் காண்கிறேன்\n\nமனச்சோர்வு திருடிய என் இளமையின் நிழல்\nஉன்னில் உயிர்த்தெழுகிறது\n\nநீ என் நேற்றைய நான்"},{n:4,t:"உன் சிரிப்பு",p:"உன் சிரிப்பு ஒரு மருந்து — மருத்துவரே அறியாத மருந்து\n\nநீ சிரித்தால் போதும் — உலகமே குணமாகும்\n\n\"ஏய் சாவு அடிப்பேன்\" என்று நீ சொல்லும்போதே\nஎன் நெஞ்சில் ஆயிரம் பூக்கள் பூக்கின்றன"},{n:5,t:"நிலவும் நீயும்",p:"உன் கழுத்தில் பிறை நிலவு — அது என் காதலின் சின்னம்\n\nநிலவே நீ தான் —\nமெல்ல வரும் மெல்ல ஒளிரும் மெல்ல என்னே கொல்லும்"},{n:6,t:"கனவும் நிஜமும்",p:"ஒன்பது வயதில் நீ கனவு கண்டாய்\n\"மருத்துவர் ஆவேன்\" என்று\nஇருபத்தொன்றில் அதை நிஜமாக்கினாய்\n\nநீ உன் கனவை நிஜமாக்கினாய்\nஎன் கனவை நிஜமாக்குவாயா?"},{n:7,t:"உன்னோடு வரும் பொம்மை",p:"சிறிய கரடி ஒன்று உன் பையில் வாழும்\nஅது நான் தான் — உருவம் மாறி\n\nதொலைவில் இருந்தாலும் உன் பக்கத்தில் இருக்கிறேன்\nஒரு பொம்மையின் வடிவில் ஆனல் முழு இதயத்துடன்"},{n:8,t:"தீவிர ரசிகன்",p:"விராட் கோஹ்லி என் ஹீரோ\nThe Weeknd என் பாடகன்\nஆனல் நீ — நீ என் எல்லாம்\n\nரசிகன் மன்றம் ஒன்று —\nதலைவன் நான் உறுப்பினர் நான் ரசிகன் நான்\nமக்கள் தொகை: ஒன்று\nபக்தி: முடிவில்லாதது"},{n:9,t:"உன் குரல்",p:"உன் மூச்சு தொடும் தூரத்தில் நான் இருக்க வேண்டும்\n\n\"தூங்கு போ\" என்கிறாய் — தாலாட்டு கேட்கிறேன்\n\"அடிப்பேன்\" என்கிறாய் — காதல் பாட்டு கேட்கிறேன்\n\nஉன் குரல் இல்லாத நாள் நாள் அல்ல — வெறும் நேரம் மட்டுமே"},{n:10,t:"தூரமும் நெருக்கமும்",p:"பெங்களூர் முதல் உன் ஊர் வரை எத்தனே கிலோமீட்டர்\nஎனக்கு தெரியாது\n\nஆனல் என் இதயம் முதல் உன் இதயம் வரை — தூரமே இல்லே\n\nபுவியியல் என்றும் காதலே தடுத்ததில்லே"},{n:11,t:"உன் அழகை நீ அறியாய்",p:"24 மணி நேரமும் உன் நினைப்பு\nஇதில் என்ன வியப்பு?\nஎன்னுள் இருந்து நினைப்பதே நீதானே\n\nசூட்பால் விளேயாடி விழும் முகம்\n\"சாவு அடிப்பேன்\" என்று சிரித்தபடி சொல்லும் முகம்\n\nஅந்த முகம் — உலகின் அழகான முகம்\nநீ மட்டும் அதை பார்ப்பதில்லே"},{n:12,t:"காத்திருத்தல்",p:"கால் மணி நேரமாக இருந்தால் என்ன?\nகாலம் முழுவதுமாக இருந்தால் என்ன?\n\n\"காத்திருத்தல்\" தானே காதல்!\n\nகாதலித்து கொண்டே தான் இருப்பேன்\nகாதல் தீரும் வரை அல்ல — காலம் முடியும் வரை!"},{n:13,t:"காலே கனவு",p:"காலேயில் நீ எழும்போது நான் அங்கே இருக்க வேண்டும்\nகாபி கொண்டு வர வேண்டும்\nநெற்றியில் முத்தம் தர வேண்டும்\n\nநீ \"போடா\" என்பாய் — நான் மீண்டும் முத்தம் தருவேன்\nநீ \"லூசு\" என்பாய் — நான் மீண்டும் காபி தருவேன்\n\nநான் உன் காலே நிலவாய் இருப்பேன்"},{n:14,t:"மருந்தில்லா மருத்துவி",p:"நீ படிப்பது மருத்துவம்\nஆனல் என்னே குணப்படுத்தியது உன் இருப்பு\n\nமாத்திரை தரவில்லே ஊசி போடவில்லே\nஆனல் என் உடைந்த மனதை உன் குரலால் ஒட்டினாய்\n\nவெள்ளே கோட் அணியும் முன்னே\nஒரு உயிரை காப்பாற்றிவிட்டாய் — அது என் உயிர்"},{n:15,t:"உயிர் ஊட்டும் உயிர்",p:"உன் சக்தி தொற்றிக்கொள்ளும் — எச்சரிக்கை!\n\nஅறுபது வயது மனிதனாய் வாழ்ந்து கொண்டிருந்தேன்\nஇருபத்தி நான்கு வயதில் —\n\nநீ வந்தாய் — திரும்பவும் பதினெட்டு ஆனேன் உன்னல்"},{n:16,t:"பாடல்கள்",p:"ஒவ்வொரு பாடலிலும் நீ இருக்கிறாய் —\n\nரோஜா ரோஜா என்றல் உன் முகம்\nஅன்பே ஆருயிரே என்றல் உன் பெயர்\n\nஎன் இசைப்பட்டியல் = உன் நினைவுகளின் அருங்காட்சியகம்"},{n:17,t:"மலரும் முட்களும்",p:"அழகும் ஆயுதமும் ஒரே தண்டில் — அதுதான் நீ\nயாரும் பறிக்க முடியாத ரோஜா — என் தோட்டத்தின் ராணி"},{n:18,t:"பொருமை",p:"ஒரு அகதியைப் போல் அலேகிறேன்\nஉன் இதயத்தில் இடம் கிடைக்காதா என்று\n\nவிக்கல் வந்தால் யாரோ நினைக்கிறார்கள் என்பதில் நம்பிக்கை இல்லே\nஆனல் உண்மை என்றல் என்னவள் விக்கியே செத்திருப்பாள்"},{n:19,t:"அதிர்ஷ்ட எண்",p:"நீ இருக்கும் எந்த எண்ணும் அதிர்ஷ்டமே\n\n\"ஒருநாள் இவனுக்கு அவள் கிடைப்பாள்\""},{n:20,t:"வெள்ளே அங்கி தேவதை",p:"மருத்துவச் சாலேயின் வாசலில் வெள்ளே அங்கி அணிந்த தேவதை\n\nநீ stethoscope வைத்து இதயத் துடிப்பைக் கேட்கிறாய்\nஎன் இதயத்தை வைத்தால் \"Sanjana Sanjana\" என்றே துடிக்கும்\n\nகேட்டால் திரும்பித் தர மறுப்பாய்"},{n:21,t:"என் எல்லாம் நீ",p:"நீ இல்லாத உலகம் வெறும் புவியியல் மட்டுமே\nநீ இருக்கும் உலகம் — என் வீடு\n\nநான் போவதில்லே போக இடமும் இல்லே\n\nநீதான் என் முகவரி நீதான் என் தேடல் நீதான் என் எல்லாம்"},{n:22,t:"காரணமில்லாக் காதல்",p:"அலே கடலே நேசிப்பது போல — தேர்வு இல்லே திசை மட்டுமே\nமூச்சு காற்றை நேசிப்பது போல — விருப்பம் இல்லே வாழ்வு மட்டுமே\n\nஅதுதான் என் காதல்\nகாரணமின்றி நிபந்தனையின்றி முடிவின்றி\n\nநான் உன்னே நேசிக்கிறேன், சஞ்சனா\n\nஎன்றும் உன்னவன் பார்த்தா"}];
+
+var RIDDLES=[{r:"I wrap around you like a hug that never lets go. Inside me, something that once bloomed still glows — What am I?",a:"🌸 Flower Bracelet"},{r:"I hang close to your heart, shaped like the night sky's smile. Inside me, a garden sleeps — What am I?",a:"🌙 Moon Necklace"},{r:"Small enough to carry, soft enough to hold. I guard a tiny key but no door to unfold — What am I?",a:"🔑 Key Charm Teddy"},{r:"First thing you touch every morning. A girl who looks like you lives on my surface — What am I?",a:"📱 Phone Cover"},{r:"Bigger than your maadu, twice as soft. When he can't hug you, I will — What am I?",a:"🧸 Cuddly Bear"},{r:"I look like a memory frozen still. But touch me and I'll sing — What am I?",a:"🎵 Singing Photo"}];
+
+/* Confetti */
+!function(){var w=document.getElementById('confetti-wrap'),c=['#f9a8d4','#fbbf24','#a78bfa','#f472b6','#fcd34d','#c4b5fd'];for(var i=0;i<80;i++){var d=document.createElement('div');d.className='conf';var s=4+Math.random()*8;d.style.cssText='left:'+Math.random()*100+'%;width:'+s+'px;height:'+(Math.random()>.5?s:s*.5)+'px;background:'+c[i%c.length]+';border-radius:'+(Math.random()>.5?'50%':'2px')+';animation-duration:'+(2+Math.random()*3)+'s;animation-delay:'+Math.random()*2+'s';w.appendChild(d)}setTimeout(function(){w.remove()},6000)}();
+
+/* Countdown */
+!function(){var tgt=new Date('2026-03-22T00:00:00'),el=document.getElementById('countdown');!function tick(){var d=tgt-new Date();if(d<=0){el.innerHTML='<p style="font-size:24px;font-weight:600" class="gradient-text">🎂 Happy Birthday Sanjana!</p>';return}el.innerHTML=[['Days',d/864e5|0],['Hrs',d%864e5/36e5|0],['Min',d%36e5/6e4|0],['Sec',d%6e4/1e3|0]].map(function(x){return'<div class="cd-box"><div class="cd-num gradient-text">'+String(x[1]).padStart(2,'0')+'</div><div class="cd-label">'+x[0]+'</div></div>'}).join('');setTimeout(tick,1000)}()}();
+
+/* Letter */
+!function(){var w=document.getElementById('letter-wrap');LETTER.forEach(function(l,i){var d=document.createElement('div');d.className='letter-line'+(l.c?' '+l.c:'');d.textContent=l.t;d.dataset.delay=i*.1;w.appendChild(d)});new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)w.querySelectorAll('.letter-line').forEach(function(l){l.style.transitionDelay=l.dataset.delay+'s';l.classList.add('vis')})})},{threshold:.15}).observe(w)}();
+
+/* Gallery */
+!function(){var g=document.getElementById('gallery-grid');PHOTOS.forEach(function(p){var d=document.createElement('div');d.className='gal-item reveal-scale';if(p.v){d.innerHTML='<video src="'+p.s+'" muted playsinline preload="metadata" loop></video><div class="gal-overlay"><span class="gal-cap">▶ '+p.c+'</span></div><div class="gal-play">▶</div>';var v=d.querySelector('video');d.onmouseenter=function(){v.play();d.querySelector('.gal-play').style.opacity='0'};d.onmouseleave=function(){v.pause();v.currentTime=0;d.querySelector('.gal-play').style.opacity='.8'}}else{d.innerHTML='<img src="'+p.s+'" alt="'+p.c+'" loading="lazy"><div class="gal-overlay"><span class="gal-cap">'+p.c+'</span></div>'}d.onclick=function(){openLB(p)};g.appendChild(d)})}();
+
+function openLB(p){var lb=document.getElementById('lb'),w=document.getElementById('lb-media-wrap'),c=document.getElementById('lb-cap');w.innerHTML=p.v?'<video src="'+p.s+'" controls autoplay playsinline style="max-width:92vw;max-height:88vh;border-radius:8px">':'<img src="'+p.s+'" style="max-width:92vw;max-height:88vh;border-radius:8px;object-fit:contain">';c.textContent=p.c;lb.classList.add('open')}
+function closeLB(e){if(e.target.id==='lb'||e.target.id==='lb-close'){document.getElementById('lb').classList.remove('open');document.getElementById('lb-media-wrap').innerHTML=''}}
+
+/* Gifts */
+!function(){var g=document.getElementById('gift-grid');REVEALS.forEach(function(r){var d=document.createElement('div');d.className='gift-card reveal';d.innerHTML='<div class="gift-emoji">'+r.e+'</div><div class="gift-label">'+r.l+'</div><div class="gift-text">'+r.t+'</div>';d.onclick=function(){d.classList.toggle('open')};g.appendChild(d)})}();
+
+/* Poems */
+function renderPoems(data,wrapId){var w=document.getElementById(wrapId);data.forEach(function(p){var d=document.createElement('div');d.className='poem-item reveal';d.innerHTML='<div class="poem-header"><span class="poem-n">'+String(p.n).padStart(2,'0')+'</span><span class="poem-t">'+p.t+'</span><span class="poem-plus">+</span></div><div class="poem-body">'+p.p+'</div>';d.onclick=function(){d.classList.toggle('open')};w.appendChild(d)})}
+renderPoems(EP,'eng-wrap');renderPoems(TP,'tam-wrap');
+
+/* Riddles */
+!function(){var w=document.getElementById('riddle-list');RIDDLES.forEach(function(r){var d=document.createElement('div');d.className='riddle-card reveal';var b=document.createElement('button');b.className='riddle-btn';b.textContent='Reveal ✨';b.onclick=function(e){e.stopPropagation();this.classList.toggle('shown');this.textContent=this.classList.contains('shown')?r.a:'Reveal ✨'};d.innerHTML='<p class="riddle-text">"'+r.r+'"</p>';d.appendChild(b);w.appendChild(d)})}();
+
+/* Scroll Observer */
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis')}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.reveal-scale').forEach(function(el){obs.observe(el)});
+</script>
+</body>
+</html>
